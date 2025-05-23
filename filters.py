@@ -34,6 +34,7 @@ def save_filter(name: str, data: dict):
         raise ValueError('Invalid filter name')
     os.makedirs(FILTERS_DIR, exist_ok=True)
     path = os.path.join(FILTERS_DIR, safe_name + '.json')
+
     with open(path, 'w') as f:
         json.dump(data, f)
 

@@ -30,6 +30,7 @@ Image (PPM P6): <input type="file" name="image"><br>
 </body>
 </html>
 """
+
     return html.encode('utf-8')
 
 
@@ -76,14 +77,18 @@ def app(environ, start_response):
         data = render_index()
         start_response('200 OK', [('Content-Type', 'text/html')])
         return [data]
-    elif environ['REQUEST_METHOD'] == 'POST' and path == '/learn':
-        data, status, ctype = handle_learn(environ)
-    elif environ['REQUEST_METHOD'] == 'POST' and path == '/apply':
-        data, status, ctype = handle_apply(environ)
-    else:
-        status = '404 Not Found'
-        data = b'Not Found'
-        ctype = 'text/plain'
+    elif environ['REQUEST_METHOD'] == 'GET' and path.startswith('/static/'):
+        file_path = os.path.join(STATIC_DIR, path[len('/static/'):])
+        if os.path.isfile(file_path):
+            with open(file_path, 'rb') as f:
+                data = f.read()
+            ctype = 'text/css' if file_path.endswith('.css') else 'text/html'
+            start_response('200 OK', [('Content-Type', ctype)])
+            return [data]
+        else:
+            start_response('404 Not Found', [('Content-Type', 'text/plain')])
+            return [b'Not Found']
+
     start_response(status, [('Content-Type', ctype)])
     return [data]
 

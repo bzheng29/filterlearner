@@ -33,3 +33,4 @@ convert input.jpg output.ppm
 ```
 
 This produces a binary PPM (P6) file suitable for upload.
+
