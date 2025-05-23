@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>FilterLearner</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<h1>FilterLearner</h1>
+<section>
+  <h2>Learn Filter</h2>
+  <form action="/learn" method="post" enctype="multipart/form-data">
+    <label>Name: <input type="text" name="name" required></label><br>
+    <label>Original (PPM P6): <input type="file" name="original" required></label><br>
+    <label>Filtered (PPM P6): <input type="file" name="filtered" required></label><br>
+    <button type="submit">Learn</button>
+  </form>
+</section>
+<section>
+  <h2>Apply Filter</h2>
+  <form action="/apply" method="post" enctype="multipart/form-data">
+    <label>Filter:
+      <select name="filter">
+        {{options}}
+      </select>
+    </label><br>
+    <label>Image (PPM P6): <input type="file" name="image" required></label><br>
+    <button type="submit">Apply</button>
+  </form>
+</section>
+</body>
+</html>
